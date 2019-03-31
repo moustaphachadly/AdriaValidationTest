@@ -2,20 +2,26 @@ package com.example.adriavalidationtest.register
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.adriavalidationtest.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegistrationPresenter : RegistrationContract.Presenter {
 
     var registartionView: RegistrationContract.View?
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     constructor(registartionView: RegistrationContract.View) {
         this.registartionView = registartionView
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
+
+        // Initialize Firestore
+        db = FirebaseFirestore.getInstance()
     }
 
     override fun registerUser(userName: String, email: String, password: String) {
@@ -31,7 +37,7 @@ class RegistrationPresenter : RegistrationContract.Presenter {
 
                         // Update user infos
                         auth.currentUser?.let {
-                            updateUserProfile(it, userName)
+                            saveUserToFirestore(it, userName)
                         }
                     } else {
                         registartionView?.registrationFailed(task)
@@ -40,17 +46,16 @@ class RegistrationPresenter : RegistrationContract.Presenter {
         }
     }
 
-    private fun updateUserProfile(user: FirebaseUser, displayName: String) {
-        val profileUpdates = UserProfileChangeRequest.Builder()
-            .setDisplayName(displayName)
-            .build()
+    private fun saveUserToFirestore(firebaseUser: FirebaseUser, userName: String) {
+        val uid = firebaseUser.uid
+        val user = User(uid, userName)
 
-        user?.updateProfile(profileUpdates)
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "User profile updated.")
-                    registartionView?.registrationSuccess()
-                }
+        db.collection("users").document(uid)
+            .set(user)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+                registartionView?.registrationSuccess()
             }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 }

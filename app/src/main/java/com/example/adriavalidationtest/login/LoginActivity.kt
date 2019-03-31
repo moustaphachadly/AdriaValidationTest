@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.example.adriavalidationtest.R
+import com.example.adriavalidationtest.friends.FriendsActivity
 import com.example.adriavalidationtest.register.RegistrationActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -48,6 +49,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun loginSuccess() {
         // Go to chat list
+        val intent = Intent(this, FriendsActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun loginFailed(task: Task<AuthResult>) {

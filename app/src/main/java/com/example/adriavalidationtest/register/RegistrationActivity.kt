@@ -1,11 +1,13 @@
 package com.example.adriavalidationtest.register
 
 import android.content.ContentValues
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.adriavalidationtest.R
+import com.example.adriavalidationtest.friends.FriendsActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import kotlinx.android.synthetic.main.activity_registration.*
@@ -45,6 +47,9 @@ class RegistrationActivity : AppCompatActivity(), RegistrationContract.View {
 
     override fun registrationSuccess() {
         // Go to chat list
+        val intent = Intent(this, FriendsActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun registrationFailed(task: Task<AuthResult>) {
