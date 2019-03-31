@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1011912832201",
+    "firebase_url": "https://adria-validation-test.firebaseio.com",
+    "project_id": "adria-validation-test",
+    "storage_bucket": "adria-validation-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011912832201:android:72ca69d640ab7ffd",
+        "android_client_info": {
+          "package_name": "com.example.adriavalidationtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011912832201-88bs12pbs5k111e3ooovpa49c46hcac6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw4a-DsljgnF9bLQGkpL309ZyO59NDIAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
