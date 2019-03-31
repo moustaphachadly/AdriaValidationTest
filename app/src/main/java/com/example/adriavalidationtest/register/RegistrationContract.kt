@@ -1,4 +1,4 @@
-package com.example.adriavalidationtest
+package com.example.adriavalidationtest.register
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult

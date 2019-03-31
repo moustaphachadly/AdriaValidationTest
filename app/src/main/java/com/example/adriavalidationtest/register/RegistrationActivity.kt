@@ -1,10 +1,11 @@
-package com.example.adriavalidationtest
+package com.example.adriavalidationtest.register
 
 import android.content.ContentValues
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.adriavalidationtest.R
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import kotlinx.android.synthetic.main.activity_registration.*
@@ -24,6 +25,12 @@ class RegistrationActivity : AppCompatActivity(), RegistrationContract.View {
             val password = edittext_password_register.text.toString()
 
             registrationPresenter?.registerUser(userName, email, password)
+        }
+
+        // Login activity button click
+        text_already_have_account.setOnClickListener {
+            // Popup the registration activity
+            finish()
         }
 
         // Setup the presenter

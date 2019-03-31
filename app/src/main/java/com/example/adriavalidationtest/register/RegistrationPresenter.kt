@@ -1,4 +1,4 @@
-package com.example.adriavalidationtest
+package com.example.adriavalidationtest.register
 
 import android.content.ContentValues.TAG
 import android.util.Log

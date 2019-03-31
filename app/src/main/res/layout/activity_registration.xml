@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        tools:context=".RegistrationActivity" android:background="@color/colorPrimary">
+        tools:context=".register.RegistrationActivity" android:background="@color/colorPrimary">
 
     <EditText
             android:id="@+id/edittext_username_register"
