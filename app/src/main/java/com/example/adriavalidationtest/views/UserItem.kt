@@ -1,7 +1,7 @@
-package com.example.adriavalidationtest.models
+package com.example.adriavalidationtest.views
 
-import android.support.v7.content.res.AppCompatResources
 import com.example.adriavalidationtest.R
+import com.example.adriavalidationtest.models.User
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.user_item.view.*

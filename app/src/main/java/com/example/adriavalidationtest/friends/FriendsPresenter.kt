@@ -3,7 +3,7 @@ package com.example.adriavalidationtest.friends
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.adriavalidationtest.models.User
-import com.example.adriavalidationtest.models.UserItem
+import com.example.adriavalidationtest.views.UserItem
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder

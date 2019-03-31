@@ -1,6 +1,6 @@
 package com.example.adriavalidationtest.friends
 
-import com.example.adriavalidationtest.models.UserItem
+import com.example.adriavalidationtest.views.UserItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 

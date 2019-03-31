@@ -13,7 +13,7 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
 
     var chatPresenter: ChatPresenter? = null
     var friend: User? = null
-    val adapter = GroupAdapter<ViewHolder>()
+    var adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +32,10 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
         if (chatPresenter == null) {
             chatPresenter = ChatPresenter(this, this)
         }
+
+        friend?.let {
+            chatPresenter!!.listenForMessages(it)
+        }
     }
 
     override fun emptyField() {
@@ -40,6 +44,11 @@ class ChatActivity : AppCompatActivity(), ChatContract.View {
 
     override fun messageSent() {
         edittext_chat.text.clear()
+        recyclerview_chat.scrollToPosition(adapter.itemCount - 1)
+    }
+
+    override fun messageAdded(groupAdapter: GroupAdapter<ViewHolder>) {
+        adapter = groupAdapter
         recyclerview_chat.scrollToPosition(adapter.itemCount - 1)
     }
 

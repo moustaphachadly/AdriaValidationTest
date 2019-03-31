@@ -9,7 +9,7 @@ import android.view.View
 import com.example.adriavalidationtest.R
 import com.example.adriavalidationtest.chat.ChatActivity
 import com.example.adriavalidationtest.models.User
-import com.example.adriavalidationtest.models.UserItem
+import com.example.adriavalidationtest.views.UserItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_friends.*
@@ -17,6 +17,10 @@ import kotlinx.android.synthetic.main.activity_friends.*
 class FriendsActivity : AppCompatActivity(), FriendsContract.View {
 
     var friendsPresenter: FriendsPresenter? = null
+
+    companion object {
+        var currentUser: User? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

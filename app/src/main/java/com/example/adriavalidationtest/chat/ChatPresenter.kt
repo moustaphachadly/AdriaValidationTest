@@ -2,14 +2,19 @@ package com.example.adriavalidationtest.chat
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.adriavalidationtest.friends.FriendsActivity
 import com.example.adriavalidationtest.models.Message
 import com.example.adriavalidationtest.models.User
+import com.example.adriavalidationtest.views.ChatDestinationItem
+import com.example.adriavalidationtest.views.ChatSourceItem
+import com.example.adriavalidationtest.views.UserItem
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
-import java.util.*
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
+import java.util.Date
 
 class ChatPresenter : ChatContract.Presenter {
 
@@ -27,6 +32,45 @@ class ChatPresenter : ChatContract.Presenter {
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance()
+    }
+
+    override fun listenForMessages(friend: User) {
+        val sourceUid = auth.uid
+        val destinationUid = friend?.uid
+
+        val ref = db.collection("user-messages/$sourceUid/roomMessages")
+        ref.addSnapshotListener(EventListener<QuerySnapshot> { snapshots, e ->
+            if (e != null) {
+                Log.w(TAG, "listen:error", e)
+                return@EventListener
+            }
+
+            val adapter = GroupAdapter<ViewHolder>()
+
+            for (dc in snapshots!!.documentChanges) {
+                when (dc.type) {
+                    DocumentChange.Type.ADDED -> {
+                        Log.d(TAG, "New message: ${dc.document.data}")
+
+                        val message = dc.document.toObject(Message::class.java)
+
+                        message?.let {
+                            if (message.source == auth.uid) {
+                                val currentUser = FriendsActivity.currentUser
+                                adapter.add(ChatSourceItem(message.text, currentUser!!))
+                            } else {
+                                adapter.add(ChatDestinationItem(message.text, chatActivity!!.friend!!))
+                            }
+                        }
+
+
+                        chatView?.messageAdded(adapter)
+                    }
+                    DocumentChange.Type.MODIFIED -> Log.d(TAG, "Modified city: ${dc.document.data}")
+                    DocumentChange.Type.REMOVED -> Log.d(TAG, "Removed city: ${dc.document.data}")
+                }
+            }
+        })
     }
 
     override fun sendMessage(text: String) {
