@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".register.RegistrationActivity"/>
         <activity android:name=".friends.FriendsActivity"/>
+        <activity android:name=".chat.ChatActivity"/>
     </application>
 
 </manifest>

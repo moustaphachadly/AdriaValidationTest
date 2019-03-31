@@ -1,11 +1,14 @@
 package com.example.adriavalidationtest.friends
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import com.example.adriavalidationtest.R
+import com.example.adriavalidationtest.chat.ChatActivity
+import com.example.adriavalidationtest.models.User
 import com.example.adriavalidationtest.models.UserItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -33,6 +36,11 @@ class FriendsActivity : AppCompatActivity(), FriendsContract.View {
 
     override fun adapterClickListener(item: UserItem, view: View) {
         // show chat
+        val intent = Intent(view.context, ChatActivity::class.java)
+        intent.putExtra(User.USER_KEY, item.user)
+        startActivity(intent)
+
+        finish()
     }
 
     override fun usersListenerSuccess(groupAdapter: GroupAdapter<ViewHolder>) {
